@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
+
 import db from '../database/connection';
-import conversorHoraMinuto  from '../utils/conversorHoraMinuto';
+import convertHourToMinutes from '../utils/convertHourToMinutes';
 
 
 interface ScheduleItem {
@@ -23,7 +24,7 @@ export default class ClassesController {
             });
         }
 
-        const timeInMinutes = conversorHoraMinuto(time);
+        const timeInMinutes = convertHourToMinutes(time);
 
         const classes = await db('classes')
             .whereExists(function() {
@@ -75,8 +76,8 @@ export default class ClassesController {
             const classSchedule = schedule.map((scheduleItem: ScheduleItem) => {
                 return {
                     week_day: scheduleItem.week_day,
-                    from: conversorHoraMinuto(scheduleItem.from),
-                    to: conversorHoraMinuto(scheduleItem.to),
+                    from: convertHourToMinutes(scheduleItem.from),
+                    to: convertHourToMinutes(scheduleItem.to),
                     class_id,
                 };
             });
