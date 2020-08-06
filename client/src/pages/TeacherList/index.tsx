@@ -24,7 +24,7 @@ function TeacherList() {
         subject, week_day, time,
       },
     });
-
+    
     setTeachers(response.data);
   }
 
